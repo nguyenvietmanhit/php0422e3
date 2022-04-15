@@ -91,4 +91,30 @@ echo $res;
 echo showName('Nam');
 echo showName('Nữ');
 // 5 - Truyền kiểu tham trị, tham chiếu trong hàm
+// + Truyền kiểu tham trị:
+// Bài toán: viết hàm thay đổi giá trị của biến
+// bên ngoài hàm
+$number = 5;
+echo "Ban đầu biến number = $number"; //5
+function changeNumber1($num) {
+    $num = 100;
+    echo "Bên trong hàm, biến có giá trị = $num"; //100
+}
+changeNumber1($number);
+echo "Sau khi gọi hàm, biến number = $number"; //100
+// -> do truyền giá trị vào hàm theo kiểu tham trị,
+// truyền tham trị là truyền bản sao của biến vào hàm
+// -> nếu muốn hàm thao tác với bản gốc, cần truyền
+//tham chiếu
+$number = 5;
+echo "Ban đầu biến number = $number" ; //5
+//Thêm ký tự & phía trc tham số để truyền đc theo
+//kiểu tham chiếu
+function changeNumber2(&$num) {
+    $num = 100;
+    echo "Bên trong hàm biến num = $num"; //100
+}
+changeNumber2($number);
+echo "Sau khi gọi hàm, biến number = $number"; //5
+// -> truyền tham chiếu là truyền bản gốc vào hàm
 ?>
