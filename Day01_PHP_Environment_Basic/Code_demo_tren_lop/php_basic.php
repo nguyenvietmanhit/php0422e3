@@ -57,6 +57,6 @@ var_dump($bool1);
 // - null: kiểu dữ liệu đặc biệt, chỉ có 1 giá trị
 //duy nhất là null
 $n1 = null;
-// - array:  kiểu mảng
+// - array:  kiểu mảngcd
 // - object: kiểu đối tượng
 ?>
