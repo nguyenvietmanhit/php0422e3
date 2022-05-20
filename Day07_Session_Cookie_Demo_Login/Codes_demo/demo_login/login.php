@@ -5,6 +5,24 @@
 <!--login.php-->
 <?php
 session_start();
+// - Ktra nếu tồn tại cookie username thì đăng nhập luôn bằng
+//cách chuyển hướng sang trang admin:
+if (isset($_COOKIE['username'])) {
+    $_SESSION['success'] = 'Ghi nhớ đăng nhập thành công';
+    $_SESSION['username'] = $_COOKIE['username'];
+    header('Location: admin.php');
+    exit();
+}
+
+// - Ktra nếu đã đăng nhập thì ko cho truy cập lại trang login,
+//mà chuyển hướng sang trang admin
+if (isset($_SESSION['username'])) {
+    $_SESSION['success'] = 'Ko thể truy cập lại trang login khi
+    đã đăng nhập';
+    header('Location: admin.php');
+    exit();
+}
+
 // XỬ LÝ FORM:
 // - B1: Debug:
 echo '<pre>';
@@ -32,7 +50,12 @@ if (isset($_POST['login'])) {
         // Giả sử đăng nhập thành công khi password = 123
         if ($password == 123) {
             // Login thành công
-            // Tạo session để lưu lại thông tin đăng nhập
+            // - Nếu user có tích vào Ghi nhớ đăng nhập thì tạo
+            //cookie để lưu lại username:
+            if (isset($_POST['remember'])) {
+                setcookie('username', $username, time() + 3600);
+            }
+            // - Tạo session để lưu lại thông tin đăng nhập
             $_SESSION['username'] = $username;
             $_SESSION['success'] = 'Đăng nhập thành công';
             // Chuyển hướng sang trang admin.php
@@ -48,6 +71,23 @@ if (isset($_POST['login'])) {
 ?>
 <h3 style="color: red"><?php echo $error; ?></h3>
 <h3 style="color: green"><?php echo $result; ?></h3>
+
+<h3 style="color: red">
+    <?php
+    if (isset($_SESSION['error'])) {
+        echo $_SESSION['error'];
+        unset($_SESSION['error']);
+    }
+    ?>
+</h3>
+<h3 style="color: green">
+    <?php
+    if (isset($_SESSION['success'])) {
+        echo $_SESSION['success'];
+        unset($_SESSION['success']);
+    }
+    ?>
+</h3>
 <form action="" method="post">
     Username:
     <input type="text" name="username" value="" />
