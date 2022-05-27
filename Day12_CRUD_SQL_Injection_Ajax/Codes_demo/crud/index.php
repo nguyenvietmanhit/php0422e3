@@ -18,7 +18,12 @@ if (isset($_SESSION['success'])) {
     echo $_SESSION['success'];
     unset($_SESSION['success']);
 }
+if (isset($_SESSION['error'])) {
+    echo $_SESSION['error'];
+    unset($_SESSION['error']);
+}
 // - Lấy bản ghi đổ ra cấu trúc bảng
+
 // B1: Viết truy vấn:
 $sql_select_all = "SELECT * FROM categories 
 ORDER BY created_at DESC";

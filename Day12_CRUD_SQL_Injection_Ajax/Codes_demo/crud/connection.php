@@ -11,4 +11,6 @@ DB_PASSWORD, DB_NAME, DB_PORT);
 if (!$connection) {
     die('Lỗi kết nối: ' . mysqli_connect_error());
 }
+// Set tường mình charset utf8 cho mọi câu query
+mysqli_set_charset($connection, 'utf8');
 echo 'Kết nối CSDL thành công';
