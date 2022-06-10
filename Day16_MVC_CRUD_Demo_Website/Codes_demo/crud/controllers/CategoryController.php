@@ -25,7 +25,13 @@ class CategoryController extends Controller {
                 //vào CSDL
                 $category_model = new Category();
                 $is_insert = $category_model->insertData($name);
-                var_dump($is_insert);
+//                var_dump($is_insert);
+                if ($is_insert) {
+                    $_SESSION['success'] = 'Thêm mới thành công';
+                    header('Location:index.php?controller=category&action=index');
+                    exit();
+                }
+                $this->error = 'Thêm mới thất bại';
             }
             // + B7: Hiển thị error ra view
         }
@@ -41,5 +47,21 @@ class CategoryController extends Controller {
         // Gọi layout để hiển thị ra các thông tin vừa gán:
         require_once 'views/layouts/main.php';
 
+    }
+
+    // index.php?controller=category&action=index
+    public function index() {
+        // - Controller gọi Model để truy vấn CSDL
+        $category_model = new Category();
+        $categories = $category_model->listData();
+        echo '<pre>';
+        print_r($categories);
+        echo '</pre>';
+
+        // - Controller gọi View để hiển thị giao diện
+        $this->page_title = 'Trang liệt kê danh mục';
+        $this->content =
+            $this->render('views/categories/index.php');
+        require_once 'views/layouts/main.php';
     }
 }
