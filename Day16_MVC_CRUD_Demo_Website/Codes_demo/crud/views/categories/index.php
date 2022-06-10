@@ -1,4 +1,9 @@
 <!--views/categories/index.php-->
+<?php
+echo '<pre>';
+print_r($categories);
+echo '</pre>';
+?>
 <a href="index.php?controller=category&action=create">
     Thêm mới danh mục
 </a>
@@ -10,13 +15,22 @@
         <th>Created_at</th>
         <th></th>
     </tr>
-    <tr>
-        <td>2</td>
-        <td>Name 2</td>
-        <td>10-06-2022 19:00:00</td>
-        <td>
-            <a href="#">Sửa</a>
-            <a href="#" onclick="return confirm('Xóa?')">Xóa</a>
-        </td>
-    </tr>
+    <?php foreach ($categories AS $category): ?>
+        <tr>
+            <td><?php echo $category['id']; ?></td>
+            <td><?php echo $category['name']; ?></td>
+            <td>
+<!--                10-06-2022 19:00:00-->
+        <?php
+        echo date('d-m-Y H:i:s',
+            strtotime($category['created_at']));
+
+        ?>
+            </td>
+            <td>
+                <a href="index.php?controller=category&action=update&id=<?php echo $category['id']?>">Sửa</a>
+                <a href="index.php?controller=category&action=delete&id=<?php echo $category['id']?>" onclick="return confirm('Xóa?')">Xóa</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
 </table>

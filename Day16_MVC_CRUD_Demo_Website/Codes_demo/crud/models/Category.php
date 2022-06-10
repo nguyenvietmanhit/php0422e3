@@ -29,4 +29,51 @@ class Category extends Model {
         $categories = $obj_select_all->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
     }
+
+    public function getById($id) {
+        //B1:
+        $sql_select_one = "SELECT * FROM categories WHERE id=:id";
+        //B2:
+        $obj_select_one = $this->connection->prepare($sql_select_one);
+        //B3:
+        $selects = [
+            ':id' => $id
+        ];
+        //B4:
+        $obj_select_one->execute($selects);
+        //B5:
+        $category = $obj_select_one->fetch(PDO::FETCH_ASSOC);
+        return $category;
+    }
+
+    public function updateData($name, $id) {
+        //B1:
+        $sql_update = "UPDATE categories SET name=:name 
+        WHERE id=:id";
+        //B2:
+        $obj_update = $this->connection->prepare($sql_update);
+        //B3:
+        $updates = [
+            ':name' => $name,
+            ':id' => $id
+        ];
+        //B4:
+        $is_update = $obj_update->execute($updates);
+        return $is_update;
+    }
+
+    public function deleteData($id) {
+        //B1:
+        $sql_delete = "DELETE FROM categories WHERE id=:id";
+        //B2:
+        $obj_delete = $this->connection->prepare($sql_delete);
+        //B3:
+        $deletes = [
+            ':id' => $id
+        ];
+        //B4:
+        $is_delete = $obj_delete->execute($deletes);
+        return $is_delete;
+    }
+
 }
