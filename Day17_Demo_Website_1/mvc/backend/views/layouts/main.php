@@ -1,9 +1,21 @@
+<!--
+views/layouts/main.php
+- Cách ghép layout từ giao diện tĩnh
++ Copy nội dung file HTML trang chủ của giao diện tĩnh:
+mockup_html/backend/index.html
++ Copy toàn bộ các file css, js, image của template vào
+thư mục tương ứng trong thư mục assets của mô hình MVC
++ Ktra lại các đường dẫn tới các file css, js trong
+ mô hình MVC đã đúng chưa
++ Chuyển thành layout động: echo thông tin động như page_title,
+content, error, session ....
+-->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title><?php echo $this->page_title; ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -128,8 +140,23 @@
     <div class="message-wrap content-wrap content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <div class="alert alert-danger">Lỗi validate</div>
-            <p class="alert alert-success">Thành công</p>
+            <div class="alert alert-danger">
+                <?php
+                echo $this->error;
+                if (isset($_SESSION['error'])) {
+                    echo $_SESSION['error'];
+                    unset($_SESSION['error']);
+                }
+                ?>
+            </div>
+            <p class="alert alert-success">
+                <?
+                if (isset($_SESSION['success'])) {
+                    echo $_SESSION['success'];
+                    unset($_SESSION['success']);
+                }
+                ?>
+            </p>
         </section>
     </div>
 
@@ -137,8 +164,8 @@
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
-            Nội dung hiển thị ở đây
-
+<!--            Nội dung hiển thị ở đây-->
+            <?php echo $this->content; ?>
         </section>
         <!-- /.content -->
     </div>
@@ -164,5 +191,24 @@
 <script src="assets/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="assets/js/adminlte.min.js"></script>
+<!--Tích hợp CKEditor vào file layout main.php-->
+<script src="assets/ckeditor/ckeditor.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // - Code tích hợp CKEditor vào textarea
+        // có name=description, chú ý CKEditor chỉ tích hợp đc
+        //với textarea
+        // - Tích hợp CKFinder vào CKEditor để có thể upload ảnh
+        //từ local: cần tải thư viện CKFinder về, giải nén, copy
+        //thư mục ckfinder vào thư mục assets, config
+        CKEDITOR.replace('description', {
+            //đường dẫn đến file ckfinder.html của ckfinder
+            filebrowserBrowseUrl: 'assets/ckfinder/ckfinder.html',
+            //đường dẫn đến file connector.php của ckfinder
+            filebrowserUploadUrl: 'assets/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+        });
+    });
+</script>
 </body>
 </html>
