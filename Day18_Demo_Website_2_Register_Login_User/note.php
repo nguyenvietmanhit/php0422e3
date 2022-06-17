@@ -51,5 +51,11 @@
  * , Controller cha, Model cha ...
  * Thường sẽ code backend trc để sinh ra dữ liệu trc, backend
  * chủ yếu là CRUD -> frontend
- *
+ * - Thư viện CKFinder cần tương thích với phiên bản PHP đang
+ cài thì mới sử dụng đc
+ * - Chức năng đăng ký user:
+ * + Bắt buộc phải mã hóa password trc khi lưu
+ * + Một số thuật toán mã hóa: md5 -> ko dùng trong thực tế vì
+ * dễ bị giải mã ngược, hay dùng bcrypt
+ * + Dùng INSERT
  */
