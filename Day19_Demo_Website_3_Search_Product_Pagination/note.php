@@ -58,4 +58,24 @@
  * + Một số thuật toán mã hóa: md5 -> ko dùng trong thực tế vì
  * dễ bị giải mã ngược, hay dùng bcrypt
  * + Dùng INSERT
+ *
+ * - Chức năng tìm kiếm danh mục:
+ * + Tìm kiếm theo tên hoặc mô tả của danh mục, dùng
+ * truy vấn SELECT kết hợp LIKE để tìm kiếm tương đối
+ * + Hay đi chung với chức năng liệt kê
+ * - Chức năng phân trang:
+ * + NẾu ko dùng phân trang, thì nếu có nhiều bản ghi cần hiển
+ * thị trong trang danh sách -> chết trang
+ * + Thực tế luôn cần áp dụng chức năng phân trang cho danh sách
+ * + SQL cho phân trang: SELECT kết hợp LIMIT
+ * VD: 1 trang hiển thị 10 bản ghi, tổng = 51 bản ghi -> cần 6 trang
+ * Trang 1 hiển thị 1 -> 10
+ * Trang 2 hiển thị 11 -> 20
+ * Trang 3 hiển thị 21 -> 30
+ * Trang 4 hiển thị 31 -> 40
+ * Trang 5 hiển thị 41 -> 50
+ * Trang 6 hiển thị 51
+ * + Url phân trang:
+ * index.php?controller=category&action=index&page=1
+ * + Code theo hướng là tạo 1 class chuyên dùng cho phân trang
  */

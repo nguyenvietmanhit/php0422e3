@@ -1,13 +1,30 @@
 <?php
-
+//??
 class Controller
 {
+    //??
     //chứa nội dung view
     public $content;
     //chứa nội dung lỗi validate
     public $error;
     // Tiêu đề trang
     public $page_title;
+
+    public function __construct() {
+        // Nếu user chưa login thì ko cho truy cập
+        //trang quản trị:
+        $controller = $_GET['controller'];
+        $action = $_GET['action'];
+        // Cần loại trừ 2 chức năng ko cần đăng nhập vẫn truy cập đc
+        //là login và register
+        if (!isset($_SESSION['user'])
+            && $controller != 'user'
+            && !in_array($action, ['login', 'register'])) {
+            $_SESSION['error'] = 'Bạn chưa đăng nhập';
+            header('Location: index.php?controller=user&action=login');
+            exit();
+        }
+    }
 
     /**
      * @param $file string Đường dẫn tới file

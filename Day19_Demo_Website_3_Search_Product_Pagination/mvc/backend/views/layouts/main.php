@@ -1,5 +1,5 @@
 <!--
-views/layouts/main.php
+mvc/backends/views/layouts/main.php
 - Cách ghép layout từ giao diện tĩnh
 + Copy nội dung file HTML trang chủ của giao diện tĩnh:
 mockup_html/backend/index.html
@@ -73,7 +73,7 @@ content, error, session ....
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="index.php?controller=user&action=logout" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
