@@ -29,3 +29,6 @@ Route::get('them-moi-sp',
 // - Url insert sản phẩm
 Route::post('insert-sp',
     [ProductController::class, 'createSave']);
+// - Url danh sách sp
+Route::get('danh-sach-sp',
+    [ProductController::class, 'index']);
