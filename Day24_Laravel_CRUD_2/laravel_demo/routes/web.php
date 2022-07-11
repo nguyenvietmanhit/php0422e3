@@ -32,3 +32,12 @@ Route::post('insert-sp',
 // - Url danh sách sp
 Route::get('danh-sach-sp',
     [ProductController::class, 'index']);
+// - Url hiển thị form sửa sản phẩm:
+Route::get('sua-sp/{product_id}',
+    [ProductController::class, 'edit']);
+// - Url xử lý update sản phẩm
+Route::put('update-sp/{product_id}',
+    [ProductController::class, 'editSave']);
+// - Url xử lý xóa, demo (thực tế cần route DELETE)
+Route::get('xoa-sp/{product_id}',
+    [ProductController::class, 'delete']);

@@ -72,4 +72,45 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
+
+    //sua-sp/12
+    public function edit($product_id) {
+//        dump($product_id);
+        $product = Product::findOrFail($product_id);
+        return view('products/update', [
+            'product' => $product
+        ]);
+    }
+
+    //update-sp/12
+    public function editSave(Request $request, $product_id) {
+        // Validate form
+        $rules = [
+            'name' => ['required'],
+            'price' => ['required', 'numeric']
+        ];
+        $request->validate($rules);
+        // Cập nhật sản phẩm:
+        $product = Product::findOrFail($product_id);
+        // Update từ request gửi lên
+        $is_update = $product->update($request->all());
+        if ($is_update) {
+            session()->put('success', 'Cập nhật thành công');
+        } else {
+            session()->put('error', 'Cập nhật thất bại');
+        }
+        return redirect('danh-sach-sp');
+    }
+
+    public function delete($product_id) {
+        // Lấy sản phẩm theo id
+        $product = Product::findOrFail($product_id);
+        $is_delete = $product->delete();
+        if ($is_delete) {
+            session()->put('success', 'Xóa thành công');
+        } else {
+            session()->put('error', 'Xóa thất bại');
+        }
+        return redirect('danh-sach-sp');
+    }
 }

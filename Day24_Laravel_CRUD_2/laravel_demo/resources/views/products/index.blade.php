@@ -23,8 +23,8 @@
                     @endif
                 </td>
                 <td>
-                    <a href="#">Sửa</a>
-                    <a href="#" onclick="return confirm('Xóa?')">Xóa</a>
+                    <a href="{{ url('sua-sp/' . $product['id']) }}">Sửa</a>
+                    <a href="{{ url('xoa-sp/' . $product['id']) }}" onclick="return confirm('Xóa?')">Xóa</a>
                 </td>
             </tr>
         @endforeach
